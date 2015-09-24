@@ -29,13 +29,6 @@ EOF
 exit
 fi
 
-#!/bin/bash
-
-DOMAIN="UIM"
-U="administrator"
-P="*******"
-P="this4now"
-
 THISDIR="${0%/*}"
 NM_ROOT="/opt/nimsoft"
 PATH="$NM_ROOT/bin:$PATH"
@@ -48,13 +41,13 @@ INCLUDE_LIKE="CLOUD"
 PROBE_TO_REMOVE="dirscan"
 
 cd "$THISDIR"
+HUB_CMD="$PWD/hub_command.sh"
+ROBOT_CMD="$PWD/robot_command.sh"
 
-./list_hubs.sh
 for HUB in $(./list_hubs.sh)
 do
 	if [ "$HUB" != "MORSECODE" ]; then continue; fi
 
-        #echo ./list_robots.sh "$HUB"
         ROBOTS=$(./list_robots.sh "$HUB")
 
         echo "$ROBOTS"| while read ROBOT_NAME
@@ -63,11 +56,12 @@ do
 		ROBOT="$ROBOT_NAME"
                 [ -z "$ROBOT_NAME" ] && continue;
 
-                ROBOT_ADDRESS="$DOMAIN/$HUB/$ROBOT_NAME"
+                ROBOT_ADDRESS="/$DOMAIN/$HUB/$ROBOT_NAME"
                 CDM_ADDRESS="/$DOMAIN/$HUB/$ROBOT_NAME/cdm"
                 CONTROLLER_ADDRESS="/$DOMAIN/$HUB/$ROBOT_NAME/controller"
 
-		DATA=$(pu -u "$U" -p "$P" "$CONTROLLER_ADDRESS" get_info "" | fgrep "$FIELDS" | awk '{print $1" "$4}')
+		#echo $ROBOT_CMD "$CONTROLLER_ADDRESS" get_info ""
+		DATA=$($ROBOT_CMD "$CONTROLLER_ADDRESS" get_info "" | fgrep "$FIELDS" | awk '{print $1" "$4}')
 
 		echo "$DATA" | while read NAME VALUE
 		do
@@ -78,7 +72,7 @@ do
 				echo
 				echo " + $ROBOT ($NAME=$MATCH)"
 
-				./uninstall_probe $ROBOT_ADDRESS "$PROBE_TO_REMOVE"
+				$PWD/uninstall_probe.sh $ROBOT_ADDRESS "$PROBE_TO_REMOVE"
 				
 				break;
 			fi
@@ -94,4 +88,3 @@ do
 done
 
 exit
-##  ## (c) MorseCode Incorporated 2015

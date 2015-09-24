@@ -43,7 +43,7 @@ fi
 
 
 #echo pu -u "$U" -p "$P" "$HUB_ADDRESS" "$@" >&2
-pu -u "$U" -p "$P" "$ROBOT_ADDRESS" "$@"
+pu -u "$NIM_USERNAME" -p "$NIM_PASSWD" "$ROBOT_ADDRESS" "$@"
 
 exit
 ##  ## (c) MorseCode Incorporated 2015

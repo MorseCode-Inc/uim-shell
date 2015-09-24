@@ -50,7 +50,7 @@ fi
 HUB_COMMAND="$PWD/hub_command.sh"
 ROBOT_COMMAND="$PWD/robot_command.sh"
 
-$ROBOT_COMMAND "$1" inst_pkg_remove "$2"
+$ROBOT_COMMAND "$1" inst_pkg_remove "$2" "$2"
 
 echo "$DATA" | grep name | grep -v robotname | awk '{print $4}'
 exit

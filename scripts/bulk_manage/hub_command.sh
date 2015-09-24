@@ -65,8 +65,8 @@ HUB_DOMAIN="${HUB_INFO%%|*}"; HUB_INFO="${HUB_INFO#*|}"
 HUB_ROBOT="${HUB_INFO%%|*}"; HUB_INFO="${HUB_INFO#*|}"
 
 
-echo pu -u "$U" -p "$P" "$HUB_ADDRESS" "$@" >&2
-pu -u "$U" -p "$P" "$HUB_ADDRESS" "$@"
+#echo pu -u "$U" -p "$P" "$HUB_ADDRESS" "$@" >&2
+pu -u "$NIM_USERNAME" -p "$NIM_PASSWD" "$HUB_ADDRESS" "$@"
 
 exit
 ##  ## (c) MorseCode Incorporated 2015

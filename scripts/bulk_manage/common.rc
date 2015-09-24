@@ -1,10 +1,8 @@
 
 
+export DOMAIN="UIM"
 export NM_ROOT="/opt/nimsoft"
 export PATH="$NM_ROOT/bin:$PATH"
-
-export U="administrator"
-export P="*********"
 
 export HUBS="
 #Name|Address|Security|Status|License|Version|IP|Communication Mode|Port|Domain|Robot

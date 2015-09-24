@@ -32,7 +32,7 @@ fi
 HUB_COMMAND="$PWD/hub_command.sh"
 HUB="$1"
 
-echo $HUB_COMMAND "$HUB" getrobots "" "" >&2
+#echo $HUB_COMMAND "$HUB" getrobots "" "" >&2
 DATA=$($HUB_COMMAND "$HUB" getrobots "" "")
 #echo "data: $DATA"
 
