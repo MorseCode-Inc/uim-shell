@@ -6,9 +6,5 @@ export PATH="$NM_ROOT/bin:$PATH"
 
 export HUBS="
 #Name|Address|Security|Status|License|Version|IP|Communication Mode|Port|Domain|Robot
-Jonathan|/UIM/Jonathan/l01-marks/hub
-LGMT01|/UIM/LGMT01/jhaynes-pc/hub
-MORSECODE|/UIM/MORSECODE/_hub/hub
-redfish|/UIM/redfish/_hub/hub
-vmw701|/UIM/vmw701/vmw701/hub
+#hubname|/domain/hubname/hubrobotname/hub
 "
