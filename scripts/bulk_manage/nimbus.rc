@@ -1,2 +1,2 @@
-NIM_USERNAME="administrator"
-NIM_PASSWD="password"
+export NIM_USERNAME="administrator"
+export NIM_PASSWD="*******"

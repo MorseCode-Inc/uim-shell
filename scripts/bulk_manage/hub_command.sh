@@ -1,22 +1,33 @@
 #!/bin/bash
 
-NM_ROOT="/opt/nimsoft"
+BINDIR="${0%/*}"
 
-PATH="$NM_ROOT/bin:$PATH"
+if [ -f "$BINDIR/common.rc" ]
+then
+	. "$BINDIR/common.rc"
+else
+cat << EOF
+Missing required common.rc file, re-install to fix.
+File location: $PWD/common.rc
+EOF
+exit
+fi
 
-U="administrator"
-P="*********"
-U="administrator"
-P="this4now"
+if [ -f "$BINDIR/nimbus.rc" ]
+then
+. "$BINDIR/nimbus.rc"
+else
+cd "$BINDIR"
+cat << EOF
+Missing required nimbus.rc file.  Expected to contain the following:
 
-HUBS="
-#Name|Address|Security|Status|License|Version|IP|Communication Mode|Port|Domain|Robot
-Jonathan|/UIM/Jonathan/l01-marks/hub|Enabled|OK|OK|7.63 [Build 7.63.2771, Dec 10 2014]|192.168.2.109||48002|UIM|l01-marks
-LGMT01|/UIM/LGMT01/jhaynes-pc/hub|Enabled|OK|OK|7.63 [Build 7.63.2771, Dec 10 2014]|10.0.8.29||48002|UIM|jhaynes-pc
-MORSECODE|/UIM/MORSECODE/_hub/hub|Enabled|OK|OK|7.63 [Build 7.63.2771, Dec 10 2014]|162.248.167.44||48002|UIM|_hub
-redfish|/UIM/redfish/_hub/hub|Enabled|Error|OK|7.63 [Build 7.63.2771, Dec 10 2014]|10.14.47.129||48002|UIM|_hub
-vmw701|/UIM/vmw701/vmw701/hub|Enabled|OK|OK|7.63 [Build 7.63.2771, Dec 10 2014]|192.168.1.110||48002|UIM|vmw701
-"
+NIM_USERNAME="administrator"
+NIM_PASSWD="******"
+
+File location: $PWD/nimbus.rc
+EOF
+exit
+fi
 
 ROBOT_CFG="$NM_ROOT/robot/robot.cfg"
 
@@ -58,3 +69,4 @@ echo pu -u "$U" -p "$P" "$HUB_ADDRESS" "$@" >&2
 pu -u "$U" -p "$P" "$HUB_ADDRESS" "$@"
 
 exit
+##  ## (c) MorseCode Incorporated 2015

@@ -2,10 +2,6 @@
 
 BINDIR="${0%/*}"
 
-##
-## List the hubs in your UIM environment.
-##
-
 if [ -f "$BINDIR/common.rc" ]
 then
 	. "$BINDIR/common.rc"
@@ -33,13 +29,21 @@ EOF
 exit
 fi
 
+ROBOT_CFG="$NM_ROOT/robot/robot.cfg"
 
-HUB_COMMAND="$PWD/hub_command.sh"
+ROBOT_ADDRESS="$1"
+shift
+if [ -z "$ROBOT_ADDRESS" ]
+then
+cat << EOF
+Missing required robot address.
+EOF
+exit
+fi
 
-HUB="$1"
-#echo $HUB_COMMAND "$HUB" gethubs "" ""
-#$HUB_COMMAND "$HUB" gethubs "" ""
-DATA=$($HUB_COMMAND "$HUB" gethubs "" "")
-echo "$DATA" | grep name | grep -v robotname | awk '{print $4}'
+
+#echo pu -u "$U" -p "$P" "$HUB_ADDRESS" "$@" >&2
+pu -u "$U" -p "$P" "$ROBOT_ADDRESS" "$@"
+
 exit
 ##  ## (c) MorseCode Incorporated 2015

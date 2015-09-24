@@ -2,10 +2,6 @@
 
 BINDIR="${0%/*}"
 
-##
-## List the hubs in your UIM environment.
-##
-
 if [ -f "$BINDIR/common.rc" ]
 then
 	. "$BINDIR/common.rc"
@@ -33,13 +29,29 @@ EOF
 exit
 fi
 
+#!/bin/bash
+
+##
+## Uninstall Probe
+##
+
+if [ -z "$1" ] || [ -z "$2" ]
+then
+cat << EOF
+Usage:
+$0 robot probe
+
+robot = the robot address: /DOMAIN/HUB/ROBOT
+probe = the probe to uninstall
+
+EOF
+fi
 
 HUB_COMMAND="$PWD/hub_command.sh"
+ROBOT_COMMAND="$PWD/robot_command.sh"
 
-HUB="$1"
-#echo $HUB_COMMAND "$HUB" gethubs "" ""
-#$HUB_COMMAND "$HUB" gethubs "" ""
-DATA=$($HUB_COMMAND "$HUB" gethubs "" "")
+$ROBOT_COMMAND "$1" inst_pkg_remove "$2"
+
 echo "$DATA" | grep name | grep -v robotname | awk '{print $4}'
 exit
 ##  ## (c) MorseCode Incorporated 2015
